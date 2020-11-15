@@ -28,6 +28,14 @@ public class BallMover : MonoBehaviour
         path += testResultsFileName;
     }
 
+    // I need to do: 
+    // Always moving, until it hits a range limit (do that by checking x, y, and z repeatedly (make sure to use >= not ==))
+    // When it hits the wall, regenerate the direction it's going in, but with opposite the direction it contacted
+    // 1. If contact, and last update, then keep green color
+    // 2. If contact, and no last update, then record "TouchTime"
+    // 3. If no contact, and last update, then turn red, change last update, record the time from TouchTime to now, as well as the iteration of lost contacts
+    // 4. If no contact, and no last update, then turn red, move on
+
     // Update is called once per frame
     void Update()
     {
