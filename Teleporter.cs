@@ -56,10 +56,7 @@ public class Teleporter : MonoBehaviour
                         //if so{
                         objective.transform.localPosition = randVect;//Teleport ball
 
-                        long TimeElapsed = System.DateTime.Now.ToFileTimeUtc() - lastTime; //Record time
-                        Debug.Log("Time Elapsed: " + TimeElapsed+ "\n Trial Number: " + iter);
-                        timeTrials += "Trial Number: " + iter + "\n" + "Time Elapsed: " + TimeElapsed + "\n\n" ;
-                        lastTime = System.DateTime.Now.ToFileTimeUtc();
+                        timeTaken();
 
                         iter++; //iterate the amount of trials }
 
@@ -76,11 +73,8 @@ public class Teleporter : MonoBehaviour
                 {
                     //If so {
                     objective.transform.localPosition = randVect;  //teleport ball 
-                    
-                    long TimeElapsed = System.DateTime.Now.ToFileTimeUtc() - lastTime;//record time
-                    Debug.Log("Time Elapsed: " + TimeElapsed + "\n Trial Number: " + iter);
-                    timeTrials += "Trial Number: " + iter + "\n" + "Time Elapsed: " + TimeElapsed + "\n\n";
-                    lastTime = System.DateTime.Now.ToFileTimeUtc();
+
+                    timeTaken();
                     
                     iter++; //iterate the amount of trials }
                 }
@@ -90,14 +84,14 @@ public class Teleporter : MonoBehaviour
         }
         else{ //"all trials has ended" condition
             Debug.Log("trial over");
-            objective.transform.localPosition = new Vector3(0, -5, 0);
-            
+            objective.SetActive(false);
+
             //Re-import the file to update the reference in the editor
-            AssetDatabase.ImportAsset(path); 
-            TextAsset asset = Resources.Load(timeTrials); //Puts it into a text file
+            //AssetDatabase.ImportAsset(path); 
+            //TextAsset asset = Resources.Load(timeTrials); //Puts it into a text file
 
             //Print the text from the file
-            Debug.Log(asset.text);
+            //Debug.Log(asset.text);
         }
     }
 
@@ -107,5 +101,14 @@ public class Teleporter : MonoBehaviour
         Rect rect = new Rect(new Vector2(Screen.width / 2 - boxSize.x / 2, Screen.height / 2 - boxSize.y / 2), boxSize);
         GUI.Box(rect, crosshair, style);
         style.border.Remove(rect);
+    }
+
+    private long timeTaken()
+    {
+        long TimeElapsed = System.DateTime.Now.ToFileTimeUtc() - lastTime;//record time
+        Debug.Log("Time Elapsed: " + (TimeElapsed*10^-7) + "\n Trial Number: " + iter);
+        timeTrials += "Trial Number: " + iter + "\n" + "Time Elapsed: " + (TimeElapsed * 10 ^ -7) + "\n\n";
+        lastTime = System.DateTime.Now.ToFileTimeUtc();
+        return TimeElapsed;
     }
 }

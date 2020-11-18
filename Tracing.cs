@@ -4,7 +4,7 @@ using UnityEngine.UI;
 using System.Globalization;
 using UnityEngine;
 
-public class BallMover : MonoBehaviour
+public class Tracing : MonoBehaviour
 {
     public GameObject objective; //Things required to be inputed from the editor
     public int range, trialDuration; //Max range of ray, then amount of trials
